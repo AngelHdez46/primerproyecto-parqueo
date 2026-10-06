@@ -3,6 +3,7 @@
 include ('../app/config.php');
 
 $placa = $_GET['placa'];
+$id_mapa = $_GET['id_mapa'];
 $placa = strtoupper($placa); //convierte a mayusculas
 
 $id_cliente = "";
@@ -31,17 +32,17 @@ if($nombre_cliente == ""){
     ?>
     <!-- Fila 2: Nombre -->
     <div class="mb-3 row align-items-center">
-        <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
+        <label for="" class="col-sm-3 col-form-label">Nombre: <span><b style="color: red;">*</b></span></label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" id="nombre" value="">
+            <input type="text" class="form-control" id="nombre<?php echo $id_mapa; ?>" value="">
         </div>
     </div>
 
     <!-- Fila 3: NIT/CI -->
     <div class="mb-3 row align-items-center">
-        <label for="NIT" class="col-sm-3 col-form-label">NIT/CI:</label>
+        <label for="" class="col-sm-3 col-form-label">NIT/CI: <span><b style="color: red;">*</b></span></label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" id="NIT" value="">
+            <input type="text" class="form-control" id="nit<?php echo $id_mapa; ?>" value="">
         </div>
     </div>
 
@@ -51,17 +52,17 @@ if($nombre_cliente == ""){
     ?>
     <!-- Fila 2: Nombre -->
     <div class="mb-3 row align-items-center">
-        <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
+        <label for="" class="col-sm-3 col-form-label">Nombre: <span><b style="color: red;">*</b></span></label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" id="nombre" value="<?php echo $nombre_cliente; ?>">
+            <input type="text" class="form-control" id="nombre<?php echo $id_mapa; ?>" value="<?php echo $nombre_cliente; ?>">
         </div>
     </div>
 
     <!-- Fila 3: NIT/CI -->
     <div class="mb-3 row align-items-center">
-        <label for="NIT" class="col-sm-3 col-form-label">NIT/CI:</label>
+        <label for="" class="col-sm-3 col-form-label">NIT/CI: <span><b style="color: red;">*</b></span></label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" id="NIT" value="<?php echo $nit_ci; ?>">
+            <input type="text" class="form-control" id="nit<?php echo $id_mapa; ?>" value="<?php echo $nit_ci; ?>">
         </div>
     </div>
 

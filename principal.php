@@ -66,7 +66,7 @@ include('layout/admin/datos_usuario.php');
                                                                 <div class="modal-body">
                                                                     <!-- Fila 1: Placa + Botón Buscar -->
                                                                     <div class="mb-3 row align-items-center">
-                                                                        <label for="placa" class="col-sm-3 col-form-label">Placa:</label>
+                                                                        <label for="" class="col-sm-3 col-form-label">Placa: <span><b style="color: red;">*</b></span></label>
                                                                         <div class="col-sm-6 col-8">
                                                                             <input type="text" class="form-control" id="placa<?php echo $mapeo['id_map']; ?>" style="text-transform: uppercase;">
                                                                         </div>
@@ -75,6 +75,7 @@ include('layout/admin/datos_usuario.php');
                                                                             <script>
                                                                                 $('#btn_buscar_cliente<?php echo $mapeo['id_map']; ?>').click(function() {
                                                                                     var placa = $('#placa<?php echo $mapeo['id_map']; ?>').val();
+                                                                                    var id_mapa = "<?php echo $mapeo['id_map']; ?>";
 
                                                                                     if (placa == "") {
                                                                                         alert('Debe llenar el campo Placa');
@@ -82,7 +83,7 @@ include('layout/admin/datos_usuario.php');
                                                                                     } else {
                                                                                         var url = 'clientes/controller_busqueda_cliente.php';
                                                                                         $.get(url, {
-                                                                                            placa: placa
+                                                                                            placa: placa, id_mapa: id_mapa
                                                                                         }, function(datos) {
                                                                                             $('#respuesta_buscar_cliente<?php echo $mapeo['id_map']; ?>').html(datos)
                                                                                         });
@@ -99,7 +100,7 @@ include('layout/admin/datos_usuario.php');
 
                                                                     <!-- Fila 4: Fecha de ingreso -->
                                                                     <div class="mb-3 row align-items-center">
-                                                                        <label for="NIT" class="col-sm-4 col-form-label">Fecha de ingreso: </label>
+                                                                        <label for="" class="col-sm-4 col-form-label">Fecha de ingreso: </label>
                                                                         <div class="col-sm-8">
                                                                             <?php
                                                                             date_default_timezone_set("America/Cancun");
@@ -107,27 +108,79 @@ include('layout/admin/datos_usuario.php');
                                                                             $mes = date("m");
                                                                             $anio = date("Y");
                                                                             ?>
-                                                                            <input type="date" class="form-control" id="fecha_ingreso" value="<?php echo $anio . "-" . $mes . "-" . $dia; ?>">
+                                                                            <input type="date" class="form-control" id="fecha_ingreso<?php echo $mapeo['id_map']; ?>" value="<?php echo $anio . "-" . $mes . "-" . $dia; ?>">
                                                                         </div>
                                                                     </div>
 
                                                                     <!-- Fila 4: Hora de ingreso -->
                                                                     <div class="mb-3 row align-items-center">
-                                                                        <label for="NIT" class="col-sm-4 col-form-label">Hora de ingreso: </label>
+                                                                        <label for="" class="col-sm-4 col-form-label">Hora de ingreso: </label>
                                                                         <div class="col-sm-8">
                                                                             <?php
                                                                             date_default_timezone_set("America/Cancun");
                                                                             $minutos = date("i");
                                                                             $horas = date("H");
                                                                             ?>
-                                                                            <input type="time" class="form-control" id="hora_ingreso" value="<?php echo $horas . ":" . $minutos; ?>">
+                                                                            <input type="time" class="form-control" id="hora_ingreso<?php echo $mapeo['id_map']; ?>" value="<?php echo $horas . ":" . $minutos; ?>">
                                                                         </div>
                                                                     </div>
 
+                                                                    <!-- Fila 5: Cuviculo -->
+                                                                    <div class="mb-3 row align-items-center">
+                                                                        <label for="" class="col-sm-4 col-form-label">Cuviculo: </label>
+                                                                        <div class="col-sm-8">
+                                                                            <input type="text" class="form-control" id="cuviculo<?php echo $mapeo['id_map']; ?>" value="<?php echo $mapeo['id_map']; ?>">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div id="respuesta_registrar_ticket<?php echo $mapeo['id_map']; ?>"></div>
+
                                                                 </div>
+
+                                                                
+
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                                    <button type="button" class="btn btn-primary">Imprimir Ticket</button>
+                                                                    <button type="button" class="btn btn-primary" id="btn_registrar_ticket<?php echo $mapeo['id_map']; ?>">Imprimir Ticket</button>
+
+                                                                    <script>
+                                                                        $('#btn_registrar_ticket<?php echo $mapeo['id_map']; ?>').click(function() {
+                                                                            var placa = $('#placa<?php echo $mapeo['id_map']; ?>').val();
+                                                                            var nombre = $('#nombre<?php echo $mapeo['id_map']; ?>').val();
+                                                                            var nit = $('#nit<?php echo $mapeo['id_map']; ?>').val();
+                                                                            var fecha_ingreso = $('#fecha_ingreso<?php echo $mapeo['id_map']; ?>').val();
+                                                                            var hora_ingreso = $('#hora_ingreso<?php echo $mapeo['id_map']; ?>').val();
+                                                                            var cuviculo = $('#cuviculo<?php echo $mapeo['id_map']; ?>').val();
+                                                                            var user_sesion = "<?php echo $nombre_usuario_sesion;?>";
+
+                                                                            //alert(placa+' - '+nombre+' - '+nit+' - '+fecha_ingreso+' - '+hora_ingreso+' - '+cuviculo);
+
+                                                                            if(placa == ""){
+                                                                                alert('Debe llenar el campo Placa');
+                                                                                $('#placa<?php echo $mapeo['id_map']; ?>').focus();
+                                                                            } else if (nombre == "") {
+                                                                                alert('Debe llenar el campo Nombre');
+                                                                                $('#nombre<?php echo $mapeo['id_map']; ?>').focus();
+                                                                            } else if (nit == "") {
+                                                                                alert('Debe llenar el campo NIT / CI');
+                                                                                $('#nit<?php echo $mapeo['id_map']; ?>').focus();
+                                                                            } else {
+                                                                                var url = 'tickets/controller_registrar_ticket.php';
+                                                                                $.get(url, {placa: placa, nombre: nombre, nit: nit, fecha_ingreso: fecha_ingreso, hora_ingreso: hora_ingreso, cuviculo: cuviculo, user_sesion: user_sesion}, function(datos) {
+                                                                                    $('#respuesta_registrar_ticket<?php echo $mapeo['id_map']; ?>').html(datos)
+                                                                                });
+                                                                            };
+
+                                                                            
+
+
+                                                                        })
+
+
+
+                                                                    </script>
+
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -171,3 +224,5 @@ include('layout/admin/datos_usuario.php');
 </body>
 
 </html>
+
+
