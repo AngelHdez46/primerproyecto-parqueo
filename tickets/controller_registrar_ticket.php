@@ -29,7 +29,7 @@ if($sentencia->execute()){
     <div class="alert alert-success" role="alert">
         Registro satisfactorio
     </div>
-    <script>location.href = "principal.php";</script>
+    <script>location.href = "tickets/generar_ticket.php";</script>
 <?php
 }else{
     ?>
