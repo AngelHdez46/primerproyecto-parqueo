@@ -47,20 +47,27 @@ $pdf->Cell(0, 2.5, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', '---------------------
 
 // --- DATOS DEL CLIENTE ---
 $pdf->SetFont('Arial', 'B', 7.5);
-$pdf->Cell(0, 3, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', 'Datos del Cliente'), 0, 1, 'L');
+$pdf->Cell(0, 4, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', 'Datos del Cliente'), 0, 1, 'L');
 
 // Línea 1: SEÑOR(A)
 $pdf->SetFont('Arial', 'B', 7);
-$pdf->Write(3, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', 'SEÑOR(A): ')); // Negrita
+$pdf->Write(4, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', 'SEÑOR(A): ')); // Negrita
 $pdf->SetFont('Arial', '', 7);
-$pdf->Write(3, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $ticket['nombre_cliente'])); // Normal
+$pdf->Write(4, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $ticket['nombre_cliente'])); // Normal
 $pdf->Ln(3); // Salto a la siguiente línea
 
 // Línea 2: RFC
 $pdf->SetFont('Arial', 'B', 7);
-$pdf->Write(3, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', 'RFC: ')); // Negrita
+$pdf->Write(4, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', 'RFC: ')); // Negrita
 $pdf->SetFont('Arial', '', 7);
-$pdf->Write(3, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $ticket['nit_ci'])); // Normal
+$pdf->Write(4, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $ticket['nit_ci'])); // Normal
+$pdf->Ln(3); // Salto a la siguiente línea
+
+// Línea 3: Placa
+$pdf->SetFont('Arial', 'B', 7);
+$pdf->Write(4, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', 'PLACA: ')); // Negrita
+$pdf->SetFont('Arial', '', 7);
+$pdf->Write(4, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $ticket['placa_auto'])); // Normal
 $pdf->Ln(3); // Salto a la siguiente línea
 
 $pdf->SetFont('Arial', '', 5);
